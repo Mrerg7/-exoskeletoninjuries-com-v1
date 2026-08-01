@@ -1,0 +1,108 @@
+---
+import '../styles/global.css';
+
+interface Props {
+  title?: string;
+  description?: string;
+  ogImage?: string;
+  canonical?: string;
+}
+
+const {
+  title = 'Exoskeleton Injuries | Wearable Exoskeleton Trends & Insights 2026',
+  description = 'Comprehensive overview of wearable exoskeleton technology in 2026 — medical breakthroughs, consumer devices, industrial safety systems, and AI-driven advancements. Domain available for acquisition.',
+  ogImage = 'https://exoskeletoninjuries.com/og-image.png',
+  canonical = 'https://exoskeletoninjuries.com/',
+} = Astro.props;
+
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@graph': [
+    {
+      '@type': 'WebSite',
+      '@id': 'https://exoskeletoninjuries.com/#website',
+      url: 'https://exoskeletoninjuries.com/',
+      name: 'Exoskeleton Injuries',
+      description: description,
+      publisher: {
+        '@type': 'Organization',
+        name: 'Desert Rich',
+        email: 'sales@desertrich.com',
+      },
+      inLanguage: 'en-US',
+    },
+    {
+      '@type': 'WebPage',
+      '@id': 'https://exoskeletoninjuries.com/#webpage',
+      url: 'https://exoskeletoninjuries.com/',
+      name: title,
+      isPartOf: { '@id': 'https://exoskeletoninjuries.com/#website' },
+      description: description,
+      datePublished: '2026-08-01',
+      dateModified: '2026-08-01',
+      inLanguage: 'en-US',
+    },
+    {
+      '@type': 'Organization',
+      '@id': 'https://exoskeletoninjuries.com/#organization',
+      name: 'Desert Rich',
+      url: 'https://exoskeletoninjuries.com/',
+      email: 'sales@desertrich.com',
+      description: 'Domain acquisition and premium digital assets.',
+    },
+  ],
+};
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="generator" content={Astro.generator} />
+
+    <!-- Primary Meta -->
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />
+    <link rel="canonical" href={canonical} />
+
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:image" content={ogImage} />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:site_name" content="Exoskeleton Injuries" />
+    <meta property="og:locale" content="en_US" />
+
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:url" content={canonical} />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={ogImage} />
+
+    <!-- Additional SEO -->
+    <meta name="author" content="Desert Rich" />
+    <meta name="theme-color" content="#0c4a6e" />
+    <meta name="msapplication-TileColor" content="#0c4a6e" />
+
+    <!-- Favicons -->
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="icon" href="/favicon.ico" />
+
+    <!-- Preconnect -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+
+    <!-- Structured Data -->
+    <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />
+  </head>
+  <body class="min-h-screen flex flex-col">
+    <slot />
+  </body>
+</html>
