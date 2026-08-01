@@ -1,0 +1,20 @@
+name = "exoskeletoninjuries"
+compatibility_date = "2025-04-01"
+compatibility_flags = ["nodejs_compat"]
+
+# Pure static assets deployment (Workers Static Assets)
+# No worker script needed — assets-only
+[assets]
+directory = "./dist"
+binding = "ASSETS"
+not_found_handling = "404-page"
+html_handling = "auto-trailing-slash"
+
+# Optional: custom domain routing handled in Cloudflare dashboard
+# routes = [
+#   { pattern = "exoskeletoninjuries.com/*", zone_name = "exoskeletoninjuries.com" },
+#   { pattern = "www.exoskeletoninjuries.com/*", zone_name = "exoskeletoninjuries.com" }
+# ]
+
+[observability]
+enabled = true
