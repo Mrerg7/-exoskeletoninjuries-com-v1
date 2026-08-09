@@ -2,12 +2,10 @@ name = "exoskeletoninjuries-com-v1"
 main = "src/index.ts"
 compatibility_date = "2026-08-01"
 
-# Static assets + Worker for one-hop canonical redirects (www/http/index.html)
 [assets]
 directory = "./dist"
 binding = "ASSETS"
 not_found_handling = "404-page"
-# Worker owns trailing-slash / index.html normalization so 404 aliases stay one-hop.
 html_handling = "none"
 run_worker_first = true
 
