@@ -35,28 +35,15 @@ export default {
     const host = url.hostname.toLowerCase();
     const normalizedPath = normalizePathname(url.pathname);
 
-    const isWorkersDev = host.endsWith('.workers.dev');
-    const isWww = host === `www.${CANONICAL_HOST}`;
-    const needsHostFix = isWww || url.protocol === 'http:';
-    const needsPathFix = normalizedPath !== url.pathname;
-
-    // One-hop 301 to the single preferred URL (apex HTTPS + trailing slash, no index.html).
-    if (!isWorkersDev && (needsHostFix || needsPathFix)) {
-      return canonicalRedirect(url, normalizedPath);
-    }
-
-    if (isWorkersDev && needsPathFix) {
-      url.pathname = normalizedPath;
-      return Response.redirect(url.toString(), 301);
-    }
+    const isNotFoundAlias =
+      url.pathname === '/404' ||
+      url.pathname === '/404/' ||
+      url.pathname === '/404.html' ||
+      url.pathname === '/404.html/' ||
+      normalizedPath === '/404/';
 
     // Explicit /404 URL variants are not indexable pages — return a real 404 without redirects.
-    if (
-      normalizedPath === '/404/' ||
-      url.pathname === '/404' ||
-      url.pathname === '/404.html' ||
-      url.pathname === '/404.html/'
-    ) {
+    if (isNotFoundAlias) {
       return new Response(
         `<!doctype html><html lang="en"><head><meta charset="UTF-8"/><meta name="viewport" content="width=device-width, initial-scale=1.0"/><meta name="robots" content="noindex, nofollow"/><title>404 — Page Not Found | Exoskeleton Injuries</title><style>body{margin:0;background:#0b1220;color:#94a3b8;font-family:system-ui,sans-serif;display:flex;align-items:center;justify-content:center;min-height:100dvh}.w{text-align:center;padding:2rem}h1{font-size:clamp(3rem,12vw,6rem);font-weight:800;color:#0ea5e9;margin:0;line-height:1}p{font-size:1.125rem;margin:1.5rem 0 2rem}a{display:inline-flex;min-height:48px;align-items:center;padding:0.75rem 1.75rem;background:#0284c7;color:#fff;text-decoration:none;border-radius:0.75rem;font-weight:600}</style></head><body><div class="w"><h1>404</h1><p>Page not found.</p><p><a href="/">Return Home</a></p></div></body></html>`,
         {
@@ -72,6 +59,21 @@ export default {
           },
         },
       );
+    }
+
+    const isWorkersDev = host.endsWith('.workers.dev');
+    const isWww = host === `www.${CANONICAL_HOST}`;
+    const needsHostFix = isWww || url.protocol === 'http:';
+    const needsPathFix = normalizedPath !== url.pathname;
+
+    // One-hop 301 to the single preferred URL (apex HTTPS + trailing slash, no index.html).
+    if (!isWorkersDev && (needsHostFix || needsPathFix)) {
+      return canonicalRedirect(url, normalizedPath);
+    }
+
+    if (isWorkersDev && needsPathFix) {
+      url.pathname = normalizedPath;
+      return Response.redirect(url.toString(), 301);
     }
 
     const response = await env.ASSETS.fetch(request);
