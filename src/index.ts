@@ -76,7 +76,15 @@ export default {
       return Response.redirect(url.toString(), 301);
     }
 
-    const response = await env.ASSETS.fetch(request);
+    const assetPath =
+      url.pathname === '/' || url.pathname === ''
+        ? '/index.html'
+        : url.pathname.endsWith('/')
+          ? `${url.pathname}index.html`
+          : url.pathname;
+
+    const assetRequest = new Request(new URL(assetPath, url.origin), request);
+    const response = await env.ASSETS.fetch(assetRequest);
     const headers = new Headers(response.headers);
 
     if (isWorkersDev) {

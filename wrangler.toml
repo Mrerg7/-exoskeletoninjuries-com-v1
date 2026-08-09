@@ -7,7 +7,8 @@ compatibility_date = "2026-08-01"
 directory = "./dist"
 binding = "ASSETS"
 not_found_handling = "404-page"
-html_handling = "force-trailing-slash"
+# Worker owns trailing-slash / index.html normalization so 404 aliases stay one-hop.
+html_handling = "none"
 run_worker_first = true
 
 [observability]
