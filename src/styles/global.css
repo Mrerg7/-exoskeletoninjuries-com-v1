@@ -5,9 +5,16 @@
 @layer base {
   html {
     @apply scroll-smooth antialiased;
+    -webkit-text-size-adjust: 100%;
+    text-size-adjust: 100%;
   }
   body {
-    @apply bg-slate-925 text-slate-200 font-sans;
+    @apply bg-slate-925 text-slate-200 font-sans text-base leading-relaxed overflow-x-hidden;
+  }
+  img,
+  svg,
+  video {
+    @apply max-w-full h-auto;
   }
   ::selection {
     @apply bg-brand-500/30 text-white;
@@ -16,19 +23,19 @@
 
 @layer components {
   .container-narrow {
-    @apply mx-auto max-w-6xl px-4 sm:px-6 lg:px-8;
+    @apply mx-auto w-full max-w-6xl px-4 sm:px-6 lg:px-8;
   }
   .section-pad {
-    @apply py-16 sm:py-20 lg:py-24;
+    @apply py-14 sm:py-20 lg:py-24;
   }
   .card {
     @apply rounded-2xl border border-slate-700/60 bg-slate-850/80 backdrop-blur-sm shadow-card transition-all duration-300 hover:border-brand-500/40 hover:shadow-glow;
   }
   .btn-primary {
-    @apply inline-flex items-center justify-center gap-2 rounded-xl bg-brand-600 px-6 py-3 text-sm font-semibold text-white shadow-lg shadow-brand-600/25 transition hover:bg-brand-500 focus:outline-none focus:ring-2 focus:ring-brand-400 focus:ring-offset-2 focus:ring-offset-slate-925;
+    @apply inline-flex min-h-11 items-center justify-center gap-2 rounded-xl bg-brand-600 px-6 py-3 text-sm font-semibold text-white shadow-lg shadow-brand-600/25 transition hover:bg-brand-500 focus:outline-none focus:ring-2 focus:ring-brand-400 focus:ring-offset-2 focus:ring-offset-slate-925;
   }
   .btn-ghost {
-    @apply inline-flex items-center justify-center gap-2 rounded-xl border border-slate-600 bg-transparent px-6 py-3 text-sm font-medium text-slate-200 transition hover:border-brand-500/60 hover:bg-slate-800/50 hover:text-white;
+    @apply inline-flex min-h-11 items-center justify-center gap-2 rounded-xl border border-slate-600 bg-transparent px-6 py-3 text-sm font-medium text-slate-200 transition hover:border-brand-500/60 hover:bg-slate-800/50 hover:text-white;
   }
   .gradient-text {
     @apply bg-gradient-to-r from-brand-300 via-brand-400 to-cyan-300 bg-clip-text text-transparent;

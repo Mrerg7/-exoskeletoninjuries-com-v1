@@ -4,14 +4,18 @@ import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
 ---
 
-<Layout title="Page Not Found | Exoskeleton Injuries" description="The requested page could not be found.">
+<Layout
+  title="Page Not Found | Exoskeleton Injuries"
+  description="The requested page could not be found."
+  noindex={true}
+>
   <Header />
-  <main class="flex-1 flex items-center justify-center section-pad">
-    <div class="text-center">
+  <main class="flex-1 flex items-center justify-center section-pad px-4">
+    <div class="text-center max-w-md mx-auto">
       <p class="text-6xl font-bold text-brand-500 mb-4">404</p>
       <h1 class="text-2xl font-semibold text-white mb-4">Page not found</h1>
-      <p class="text-slate-400 mb-8 max-w-md mx-auto">The page you’re looking for doesn’t exist or has been moved.</p>
-      <a href="/" class="btn-primary">Return Home</a>
+      <p class="text-slate-400 mb-8">The page you’re looking for doesn’t exist or has been moved.</p>
+      <a href="/" class="btn-primary min-h-12 px-8">Return Home</a>
     </div>
   </main>
   <Footer />

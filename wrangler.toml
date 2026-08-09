@@ -1,18 +1,14 @@
 name = "exoskeletoninjuries"
+main = "src/index.ts"
 compatibility_date = "2026-08-01"
 
-# Pure static assets deployment (Workers Static Assets)
-# No Worker script / no binding — assets-only
+# Static assets + Worker for one-hop canonical redirects (www/http/index.html)
 [assets]
 directory = "./dist"
+binding = "ASSETS"
 not_found_handling = "404-page"
-html_handling = "auto-trailing-slash"
-
-# Optional: custom domain routing handled in Cloudflare dashboard
-# routes = [
-#   { pattern = "exoskeletoninjuries.com/*", zone_name = "exoskeletoninjuries.com" },
-#   { pattern = "www.exoskeletoninjuries.com/*", zone_name = "exoskeletoninjuries.com" }
-# ]
+html_handling = "force-trailing-slash"
+run_worker_first = true
 
 [observability]
 enabled = true

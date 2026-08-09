@@ -6,6 +6,8 @@ interface Props {
   description?: string;
   ogImage?: string;
   canonical?: string;
+  robots?: string;
+  noindex?: boolean;
 }
 
 const {
@@ -13,6 +15,10 @@ const {
   description = 'Comprehensive overview of wearable exoskeleton technology in 2026 — medical breakthroughs, consumer devices, industrial safety systems, and AI-driven advancements. Domain available for acquisition.',
   ogImage = 'https://exoskeletoninjuries.com/og-image.png',
   canonical = 'https://exoskeletoninjuries.com/',
+  noindex = false,
+  robots = noindex
+    ? 'noindex, nofollow'
+    : 'index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1',
 } = Astro.props;
 
 const jsonLd = {
@@ -58,33 +64,39 @@ const jsonLd = {
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
     <meta name="generator" content={Astro.generator} />
 
     <!-- Primary Meta -->
     <title>{title}</title>
     <meta name="description" content={description} />
-    <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />
-    <meta name="google-site-verification" content="XtN1GWMhO7tSyouyUvoXiyZEhWxlYnTDlhC61r_FjSE" />
-    <link rel="canonical" href={canonical} />
+    <meta name="robots" content={robots} />
+    {!noindex && (
+      <meta name="google-site-verification" content="XtN1GWMhO7tSyouyUvoXiyZEhWxlYnTDlhC61r_FjSE" />
+    )}
+    {!noindex && <link rel="canonical" href={canonical} />}
 
-    <!-- Open Graph / Facebook -->
-    <meta property="og:type" content="website" />
-    <meta property="og:url" content={canonical} />
-    <meta property="og:title" content={title} />
-    <meta property="og:description" content={description} />
-    <meta property="og:image" content={ogImage} />
-    <meta property="og:image:width" content="1200" />
-    <meta property="og:image:height" content="630" />
-    <meta property="og:site_name" content="Exoskeleton Injuries" />
-    <meta property="og:locale" content="en_US" />
+    {!noindex && (
+      <>
+        <!-- Open Graph / Facebook -->
+        <meta property="og:type" content="website" />
+        <meta property="og:url" content={canonical} />
+        <meta property="og:title" content={title} />
+        <meta property="og:description" content={description} />
+        <meta property="og:image" content={ogImage} />
+        <meta property="og:image:width" content="1200" />
+        <meta property="og:image:height" content="630" />
+        <meta property="og:site_name" content="Exoskeleton Injuries" />
+        <meta property="og:locale" content="en_US" />
 
-    <!-- Twitter -->
-    <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:url" content={canonical} />
-    <meta name="twitter:title" content={title} />
-    <meta name="twitter:description" content={description} />
-    <meta name="twitter:image" content={ogImage} />
+        <!-- Twitter -->
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:url" content={canonical} />
+        <meta name="twitter:title" content={title} />
+        <meta name="twitter:description" content={description} />
+        <meta name="twitter:image" content={ogImage} />
+      </>
+    )}
 
     <!-- Additional SEO -->
     <meta name="author" content="Desert Rich" />
@@ -104,9 +116,11 @@ const jsonLd = {
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
 
     <!-- Structured Data -->
-    <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />
+    {!noindex && (
+      <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />
+    )}
   </head>
-  <body class="min-h-screen flex flex-col">
+  <body class="min-h-screen flex flex-col overflow-x-hidden">
     <slot />
   </body>
 </html>
