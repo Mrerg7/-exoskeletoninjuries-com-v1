@@ -1,0 +1,61 @@
+---
+import Layout from "../layouts/Layout.astro";
+import Header from "../components/Header.astro";
+import Footer from "../components/Footer.astro";
+import { BUY_MAIL, DESCRIPTION, DOMAIN, PRICE_LABEL } from "../lib/sale";
+
+const title = `Who should buy ${DOMAIN} | Premium Domain for Sale | Desert Rich`;
+const description = `Buyer brief for ${DOMAIN} at ${PRICE_LABEL}: injury firms, device makers, safety publishers, and clinics. ${DESCRIPTION}`;
+
+const briefs = [
+  {
+    title: "Injury and product-liability firms",
+    copy: "The domain says the practice area before the logo does. Use it for intake, a resource library, or a dedicated matter site when the device is an exoskeleton, exosuit, or powered orthosis.",
+  },
+  {
+    title: "Exoskeleton and rehab device companies",
+    copy: "Own the injury conversation instead of renting it from a publisher. Clinical education, adverse-event explainers, and surgeon or therapist resources sit naturally on this name.",
+  },
+  {
+    title: "Occupational safety programs",
+    copy: "Warehouses and plants already buy back-assist and shoulder-assist suits to cut recordable injuries. The domain is the briefing room for buyers of that equipment.",
+  },
+  {
+    title: "Universities and trial networks",
+    copy: "Gait labs, VA collaborations, and stroke rehab centers can use a plain-language name patients will actually remember after a consult.",
+  },
+];
+---
+
+<Layout title={title} description={description} canonical="https://exoskeletoninjuries.com/buyers/">
+  <Header />
+  <main id="content">
+    <article class="mx-auto max-w-3xl px-5 py-14 sm:py-20">
+      <p class="kicker">Buyer brief</p>
+      <h1 class="mt-3 font-display text-4xl tracking-tight sm:text-6xl">Who should own this name.</h1>
+      <p class="mt-6 text-lg leading-relaxed text-quiet">
+        {DOMAIN} is an exact-match .com, asking {PRICE_LABEL}. It is not a directory of other domains. It is one name,
+        useful to the people who already work at the intersection of suits, spines, and claims.
+      </p>
+      <ol class="mt-12 space-y-10">
+        {
+          briefs.map((brief, index) => (
+            <li class="border-t border-rule pt-6">
+              <p class="font-display text-2xl text-copper">0{index + 1}</p>
+              <h2 class="mt-2 text-2xl font-semibold">{brief.title}</h2>
+              <p class="mt-3 leading-relaxed text-quiet">{brief.copy}</p>
+            </li>
+          ))
+        }
+      </ol>
+      <div class="mt-12 flex flex-col gap-3 sm:flex-row">
+        <a href={BUY_MAIL} class="btn-copper">Buy now · {PRICE_LABEL}</a>
+        <a href="/#offer" class="btn-line">Make an offer</a>
+        <a href="/transfer/" class="inline-flex min-h-12 items-center justify-center px-5 font-medium underline decoration-rule underline-offset-4">
+          How transfer works
+        </a>
+      </div>
+    </article>
+  </main>
+  <Footer />
+</Layout>

@@ -1,53 +1,35 @@
 # exoskeletoninjuries.com
 
-Static Astro site for **exoskeletoninjuries.com** — demonstration & informational overview of wearable exoskeleton technology trends in 2026.
+Premium domain acquisition site for **exoskeletoninjuries.com**. Asking price **$100,000**. Seller: Desert Rich (`sales@desertrich.com`).
 
 ## Stack
 
-- **Astro 5** (pure static output)
-- **TypeScript** (strict)
-- **Tailwind CSS**
-- **Content Collections**
-- **@astrojs/sitemap**
-- Deployed as **Cloudflare Workers Static Assets** (assets-only, no adapter)
+- Astro 5, static output
+- Tailwind CSS
+- Content collections for category notes
+- `@astrojs/sitemap`
+- Cloudflare Workers static assets (free plan). No paid Workers features.
 
-## Features
+Build command: `npm run build`. Output directory: `dist`.
 
-- Fully static, edge-optimized
-- Mobile-first responsive design
-- Complete Open Graph + Twitter Card meta
-- JSON-LD structured data (WebSite + WebPage + Organization)
-- Sitemap + robots.txt
-- Sophisticated domain acquisition CTA → `sales@desertrich.com`
-- Content Collections for advancements
+## Deploy
 
-## Development
+Connect this repo in Cloudflare and keep the Workers static-assets project, or:
 
 ```bash
 npm install
-npm run dev
-```
-
-## Build
-
-```bash
 npm run build
-```
-
-Output lands in `./dist` ready for Cloudflare Workers Static Assets.
-
-## Deploy (Cloudflare)
-
-```bash
 npx wrangler deploy
 ```
 
-Or connect the GitHub repo in the Cloudflare dashboard and set build command `npm run build`, output directory `dist`.
+Canonical host redirects (www and http) stay in `src/index.ts`.
 
-## Domain Acquisition
+## Changelog
 
-All inquiries: **sales@desertrich.com**
+### 2026-10-11
 
----
-
-© Desert Rich. This site is for demonstration purposes only.
+- Rebuilt the page as a domain sale, asking price $100,000 (was $15,999).
+- Title, description, canonical, Product/Offer schema, buyer and transfer pages.
+- Above-the-fold price, buy / offer / contact paths, escrow steps, exit note.
+- Light and dark theme, 48px controls, mobile menu.
+- Category notes kept and labeled as public reporting, not part of the sale.

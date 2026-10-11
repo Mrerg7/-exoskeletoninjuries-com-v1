@@ -1,0 +1,63 @@
+---
+import Layout from "../layouts/Layout.astro";
+import Header from "../components/Header.astro";
+import Footer from "../components/Footer.astro";
+import Price from "../components/Price.astro";
+import { DESCRIPTION, DOMAIN, EMAIL, PRICE_LABEL } from "../lib/sale";
+
+const title = `Transfer ${DOMAIN} | Premium Domain for Sale | Desert Rich`;
+const description = `Escrow transfer for ${DOMAIN} at ${PRICE_LABEL}. Auth code or registrar push after funds clear. ${DESCRIPTION}`;
+
+const steps = [
+  { n: "01", title: "Agree the number", copy: `Buy at ${PRICE_LABEL}, or send a serious offer. We reply within one business day.` },
+  { n: "02", title: "Open escrow", copy: "Funds sit with an independent escrow agent. Neither side releases early." },
+  { n: "03", title: "Push the name", copy: "Auth code or account push, whichever the registrars support. You confirm receipt." },
+  { n: "04", title: "Close", copy: "Escrow releases when the name is in your account. Then it is yours alone." },
+];
+---
+
+<Layout title={title} description={description} canonical="https://exoskeletoninjuries.com/transfer/">
+  <Header />
+  <main id="content">
+    <div class="container-narrow grid gap-12 py-14 sm:py-20 lg:grid-cols-12">
+      <article class="lg:col-span-7">
+        <p class="kicker">Transfer</p>
+        <h1 class="mt-3 font-display text-4xl tracking-tight sm:text-6xl">Escrow first. Then the name moves.</h1>
+        <p class="mt-6 text-lg leading-relaxed text-quiet">
+          {DOMAIN} transfers like any other .com. You do not wire a stranger and hope. An escrow agent holds {PRICE_LABEL},
+          or the agreed price, until the domain shows in your registrar account.
+        </p>
+        <ol class="mt-10 space-y-8">
+          {
+            steps.map((step) => (
+              <li class="border-t border-rule pt-6">
+                <p class="font-display text-2xl text-copper">{step.n}</p>
+                <h2 class="mt-2 text-xl font-semibold">{step.title}</h2>
+                <p class="mt-2 text-quiet">{step.copy}</p>
+              </li>
+            ))
+          }
+        </ol>
+        <div class="mt-10 rounded-lg border border-rule bg-card p-6">
+          <h2 class="text-lg font-semibold">What we will not do</h2>
+          <ul class="mt-3 space-y-2 text-quiet">
+            <li>No payment apps, gift cards, or crypto-only close.</li>
+            <li>No card charge on this page.</li>
+            <li>No claim that the name brings a traffic or ranking guarantee.</li>
+            <li>No trademark opinion. Have your counsel check clearance.</li>
+          </ul>
+          <p class="mt-4 text-sm">
+            Questions go to <a class="font-medium underline decoration-rule underline-offset-4" href={`mailto:${EMAIL}`}>{EMAIL}</a>.
+          </p>
+        </div>
+        <a href="/#offer" class="mt-8 inline-flex min-h-12 items-center font-medium underline decoration-rule underline-offset-4">
+          Start an inquiry
+        </a>
+      </article>
+      <div class="lg:col-span-5">
+        <Price />
+      </div>
+    </div>
+  </main>
+  <Footer />
+</Layout>

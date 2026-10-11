@@ -1,183 +1,307 @@
 ---
-import Layout from '../layouts/Layout.astro';
-import Header from '../components/Header.astro';
-import Footer from '../components/Footer.astro';
-import { getCollection } from 'astro:content';
+import Layout from "../layouts/Layout.astro";
+import Header from "../components/Header.astro";
+import Footer from "../components/Footer.astro";
+import Price from "../components/Price.astro";
+import { getCollection } from "astro:content";
+import { DESCRIPTION, DOMAIN, EMAIL, PRICE_LABEL, TITLE } from "../lib/sale";
 
-const advancements = (await getCollection('advancements')).sort(
-  (a, b) => a.data.order - b.data.order
-);
+const advancements = (await getCollection("advancements")).sort((a, b) => a.data.order - b.data.order);
 
-const medical = await Promise.all(
-  advancements
-    .filter((a) => a.data.category === 'Medical' || a.data.category === 'Research')
-    .map(async (item) => {
-      const { Content } = await item.render();
-      return { ...item, Content };
-    })
-);
+const reasons = [
+  {
+    kicker: "01",
+    title: "Exact match",
+    copy: "The phrase buyers, patients, and counsel search is the brand. No invented word to teach.",
+  },
+  {
+    kicker: "02",
+    title: "Two markets, one name",
+    copy: "It reads as legal, clinical, and industrial. Plaintiff firms and device companies can both own it honestly.",
+  },
+  {
+    kicker: "03",
+    title: "Ready to transfer",
+    copy: "Single owner, clean history, auth-code or registrar push. No marketplace auction clock.",
+  },
+];
 
-const consumerIndustrial = await Promise.all(
-  advancements
-    .filter((a) => a.data.category === 'Consumer' || a.data.category === 'Industrial')
-    .map(async (item) => {
-      const { Content } = await item.render();
-      return { ...item, Content };
-    })
-);
+const buyers = [
+  {
+    title: "Injury & product counsel",
+    copy: "A name clients already type when a wearable device, workplace claim, or rehab injury is the matter.",
+  },
+  {
+    title: "Device makers",
+    copy: "Brand the safety record, clinical education, and post-market story of an exoskeleton or exosuit line.",
+  },
+  {
+    title: "Occupational safety",
+    copy: "Publish injury-prevention programs for warehouses, plants, and construction crews using powered suits.",
+  },
+  {
+    title: "Research & clinics",
+    copy: "House trials, protocols, and patient guidance where the category and the injury meet.",
+  },
+];
+
+const steps = [
+  { n: "01", title: "Agree the number", copy: `Buy at ${PRICE_LABEL}, or send a serious offer. We reply within one business day.` },
+  { n: "02", title: "Open escrow", copy: "Funds sit with an independent escrow agent. Neither side releases early." },
+  { n: "03", title: "Push the name", copy: "Auth code or account push, whichever the registrars support. You confirm receipt." },
+  { n: "04", title: "Close", copy: "Escrow releases when the name is in your account. Then it is yours alone." },
+];
+
+const faqs = [
+  {
+    q: "Is $100,000 the price?",
+    a: "Yes. That is the asking price for the domain alone. Serious offers are read. The name is not listed as a lease, a payment plan, or a traffic package.",
+  },
+  {
+    q: "How does the purchase close?",
+    a: "Through an independent escrow service such as Escrow.com, or another escrow both sides accept. You fund escrow, we transfer the domain, escrow releases on confirmation.",
+  },
+  {
+    q: "How fast is the transfer?",
+    a: "Most .com pushes complete within a few days of cleared funds, depending on the gaining registrar. We do not promise a same-hour close.",
+  },
+  {
+    q: "Who is selling?",
+    a: `Desert Rich. Write ${EMAIL}. A person replies within one business day. This is not an automated marketplace listing.`,
+  },
+  {
+    q: "What is included?",
+    a: "The domain name and the transfer. The demonstration copy on this site is not a medical practice, a law practice, or a content license unless we agree that in writing.",
+  },
+  {
+    q: "Do you claim trademark rights?",
+    a: "No. We are selling a domain. Buyers should run their own trademark and clearance review before close.",
+  },
+];
 ---
 
-<Layout>
+<Layout title={TITLE} description={DESCRIPTION} canonical="https://exoskeletoninjuries.com/">
   <Header />
-
-  <main class="flex-1">
-    <!-- Hero -->
-    <section class="relative overflow-hidden">
-      <div class="absolute inset-0 bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-brand-900/40 via-slate-925 to-slate-925"></div>
-      <div class="absolute inset-0 opacity-40" style="background-image: url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA2MCA2MCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48ZyBmaWxsPSJub25lIiBmaWxsLXJ1bGU9ImV2ZW5vZGQiPjxnIGZpbGw9IiMxZTI5M2IiIGZpbGwtb3BhY2l0eT0iMC4xIj48cGF0aCBkPSJNMzYgMzRjMC0yIDItNCAyLTRzLTItMi00LTItNCAyLTQgMiAyIDIgNCAyIDItMiA0LTIgNC0yIDQtNHoiLz48L2c+PC9nPjwvc3ZnPg==');"></div>
-
-      <div class="container-narrow relative section-pad pt-16 sm:pt-28">
-        <div class="mx-auto w-full max-w-3xl text-center">
-          <div class="mb-6 inline-flex items-center gap-2 rounded-full border border-brand-500/30 bg-brand-500/10 px-4 py-2 text-sm font-medium text-brand-300">
-            <span class="relative flex h-2 w-2">
-              <span class="absolute inline-flex h-full w-full animate-ping rounded-full bg-brand-400 opacity-75"></span>
-              <span class="relative inline-flex h-2 w-2 rounded-full bg-brand-400"></span>
-            </span>
-            2026 Industry Outlook
-          </div>
-
-          <h1 class="mb-6 text-[2rem] font-extrabold leading-tight tracking-tight text-white sm:text-5xl lg:text-6xl">
-            Wearable Exoskeletons
-            <span class="block gradient-text mt-2">Enter the Mainstream</span>
+  <main id="content">
+    <section class="border-b border-rule">
+      <div class="container-narrow grid items-end gap-10 py-14 lg:grid-cols-12 lg:py-20">
+        <div class="lg:col-span-7">
+          <p class="kicker">Premium domain for sale</p>
+          <h1 class="mt-4 font-display text-5xl font-medium leading-none tracking-tight sm:text-7xl">
+            <span class="sr-only">{DOMAIN}</span>
+            <span aria-hidden="true">exoskeleton<span class="mt-1 block">injuries.com</span></span>
           </h1>
-
-          <p class="mx-auto mb-10 max-w-2xl text-base text-slate-400 leading-relaxed sm:text-lg">
-            From clinical prototypes to consumer devices — AI, lightweight materials, and soft robotics are accelerating adoption across healthcare, industrial safety, defense, and personal mobility.
+          <p class="mt-6 max-w-xl text-lg leading-relaxed text-quiet">
+            The exact-match .com where wearable robotics, injury law, and workplace safety already share a sentence.
+            Priced at {PRICE_LABEL}. Not a parked page of ads.
           </p>
-
-          <div class="flex w-full flex-col items-stretch justify-center gap-3 sm:flex-row sm:items-center sm:gap-4">
-            <a href="#breakthroughs" class="btn-primary w-full sm:w-auto">
-              Explore Breakthroughs
-              <svg class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" aria-hidden="true">
-                <path stroke-linecap="round" stroke-linejoin="round" d="M19 14l-7 7m0 0l-7-7m7 7V3" />
-              </svg>
-            </a>
-            <a
-              href="mailto:sales@desertrich.com?subject=Domain%20Inquiry%3A%20exoskeletoninjuries.com"
-              class="btn-ghost w-full sm:w-auto"
-            >
-              Domain Acquisition
-            </a>
-          </div>
+          <dl class="mt-8 grid grid-cols-2 gap-px overflow-hidden rounded-lg border border-rule bg-rule sm:grid-cols-3">
+            <div class="bg-card px-4 py-4">
+              <dt class="text-xs uppercase tracking-widest text-quiet">TLD</dt>
+              <dd class="mt-1 font-medium">.com</dd>
+            </div>
+            <div class="bg-card px-4 py-4">
+              <dt class="text-xs uppercase tracking-widest text-quiet">Length</dt>
+              <dd class="mt-1 font-medium">19 letters</dd>
+            </div>
+            <div class="bg-card px-4 py-4">
+              <dt class="text-xs uppercase tracking-widest text-quiet">Status</dt>
+              <dd class="mt-1 font-medium">Available now</dd>
+            </div>
+          </dl>
         </div>
-
-        <!-- Stats strip -->
-        <div class="mt-12 grid grid-cols-2 gap-3 sm:mt-16 sm:grid-cols-4 sm:gap-6">
-          <div class="card p-4 text-center sm:p-5">
-            <div class="text-xl font-bold text-brand-300 sm:text-3xl">24.3%</div>
-            <div class="mt-1 text-sm text-slate-500">Metabolic energy savings</div>
-          </div>
-          <div class="card p-4 text-center sm:p-5">
-            <div class="text-xl font-bold text-brand-300 sm:text-3xl">4.2 lb</div>
-            <div class="mt-1 text-sm text-slate-500">Soft exosuit weight</div>
-          </div>
-          <div class="card p-4 text-center sm:p-5">
-            <div class="text-xl font-bold text-brand-300 sm:text-3xl">ms</div>
-            <div class="mt-1 text-sm text-slate-500">Intent detection latency</div>
-          </div>
-          <div class="card p-4 text-center sm:p-5">
-            <div class="text-xl font-bold text-brand-300 sm:text-3xl">2026</div>
-            <div class="mt-1 text-sm text-slate-500">Consumer expansion year</div>
-          </div>
+        <div class="lg:col-span-5">
+          <Price />
         </div>
       </div>
     </section>
 
-    <!-- Medical & Research Breakthroughs -->
-    <section id="breakthroughs" class="section-pad border-t border-slate-800/60">
-      <div class="container-narrow">
-        <div class="mb-12 max-w-2xl">
-          <p class="mb-2 text-sm font-semibold uppercase tracking-widest text-brand-400">Medical & Rehabilitation</p>
-          <h2 class="text-3xl font-bold text-white sm:text-4xl">Clinical Breakthroughs</h2>
-          <p class="mt-4 text-slate-400 leading-relaxed">
-            Devices once confined to labs are receiving regulatory clearances and demonstrating measurable outcomes in pain reduction, energy efficiency, and mobility restoration.
-          </p>
-        </div>
+    <section aria-label="Transfer assurances" class="border-b border-rule">
+      <ul class="container-narrow grid grid-cols-2 lg:grid-cols-4">
+        <li class="border-b border-rule px-5 py-5 lg:border-b-0 lg:border-r">
+          <p class="text-sm font-semibold">Escrow</p>
+          <p class="mt-1 text-sm text-quiet">Funds release on transfer</p>
+        </li>
+        <li class="border-b border-rule px-5 py-5 lg:border-b-0 lg:border-r">
+          <p class="text-sm font-semibold">Registrar</p>
+          <p class="mt-1 text-sm text-quiet">Auth code or account push</p>
+        </li>
+        <li class="border-b border-rule px-5 py-5 lg:border-b-0 lg:border-r">
+          <p class="text-sm font-semibold">History</p>
+          <p class="mt-1 text-sm text-quiet">Clean. One owner.</p>
+        </li>
+        <li class="px-5 py-5">
+          <p class="text-sm font-semibold">Reply</p>
+          <p class="mt-1 text-sm text-quiet">One business day</p>
+        </li>
+      </ul>
+    </section>
 
-        <div class="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-          {medical.map((item) => (
-            <article class="card group p-6">
-              <div class="mb-4 flex items-start justify-between gap-2">
-                <span class="inline-flex rounded-full bg-brand-500/10 px-2.5 py-0.5 text-xs font-medium text-brand-300">
-                  {item.data.category}
-                </span>
-                {item.data.highlight && (
-                  <span class="text-xs text-slate-500 text-right">{item.data.highlight}</span>
-                )}
+    <section class="container-narrow py-16 sm:py-24" aria-labelledby="why-title">
+      <p class="kicker">Why this name</p>
+      <h2 id="why-title" class="mt-3 max-w-2xl font-display text-4xl tracking-tight sm:text-5xl">
+        A category keyword that still sounds like a firm.
+      </h2>
+      <ol class="mt-10 divide-y divide-rule border-y border-rule">
+        {
+          reasons.map((reason) => (
+            <li class="grid gap-2 py-6 sm:grid-cols-12 sm:gap-6">
+              <p class="font-display text-2xl text-copper sm:col-span-2">{reason.kicker}</p>
+              <div class="sm:col-span-10">
+                <h3 class="text-xl font-semibold">{reason.title}</h3>
+                <p class="mt-2 max-w-2xl text-quiet">{reason.copy}</p>
               </div>
-              <h3 class="mb-2 text-lg font-semibold text-white group-hover:text-brand-300 transition">
-                {item.data.title}
-              </h3>
-              {item.data.organization && (
-                <p class="mb-3 text-sm font-medium text-slate-500">{item.data.organization}</p>
-              )}
-              <div class="text-sm text-slate-400 leading-relaxed">
-                <item.Content />
-              </div>
-            </article>
-          ))}
+            </li>
+          ))
+        }
+      </ol>
+    </section>
+
+    <section class="border-y border-rule bg-card" aria-labelledby="buyers-title">
+      <div class="container-narrow py-16 sm:py-24">
+        <div class="flex flex-wrap items-end justify-between gap-4">
+          <div>
+            <p class="kicker">Who it fits</p>
+            <h2 id="buyers-title" class="mt-3 font-display text-4xl tracking-tight">Four buyers. One spelling.</h2>
+          </div>
+          <a href="/buyers/" class="inline-flex min-h-12 items-center font-medium underline decoration-rule underline-offset-4">
+            See the buyer brief
+          </a>
         </div>
+        <ul class="mt-10 grid gap-px overflow-hidden rounded-lg border border-rule bg-rule sm:grid-cols-2">
+          {
+            buyers.map((buyer) => (
+              <li class="bg-paper p-6">
+                <h3 class="text-lg font-semibold">{buyer.title}</h3>
+                <p class="mt-2 text-quiet">{buyer.copy}</p>
+              </li>
+            ))
+          }
+        </ul>
       </div>
     </section>
 
-    <!-- Consumer & Industrial -->
-    <section id="sectors" class="section-pad border-t border-slate-800/60 bg-slate-900/40">
-      <div class="container-narrow">
-        <div class="mb-12 max-w-2xl">
-          <p class="mb-2 text-sm font-semibold uppercase tracking-widest text-brand-400">Market Expansion</p>
-          <h2 class="text-3xl font-bold text-white sm:text-4xl">Consumer & Industrial Adoption</h2>
-          <p class="mt-4 text-slate-400 leading-relaxed">
-            Beyond the clinic, exoskeletons are entering factories, warehouses, hiking trails, and everyday life — reducing injury rates and extending human capability.
-          </p>
-        </div>
+    <section class="container-narrow py-16 sm:py-24" aria-labelledby="notes-title">
+      <p class="kicker">Category context</p>
+      <h2 id="notes-title" class="mt-3 max-w-2xl font-display text-4xl tracking-tight">The field this name sits on.</h2>
+      <p class="mt-4 max-w-2xl text-quiet">
+        Short notes from public reporting as of August 2026. They explain the market. They are not endorsements, and
+        they are not included in the sale.
+      </p>
+      <ul class="mt-8 divide-y divide-rule border-y border-rule">
+        {
+          advancements.map((note) => (
+            <li class="grid gap-2 py-5 sm:grid-cols-12 sm:items-baseline">
+              <p class="text-xs font-semibold uppercase tracking-widest text-pine sm:col-span-2">{note.data.category}</p>
+              <div class="sm:col-span-6">
+                <h3 class="font-semibold">{note.data.title}</h3>
+                {note.data.organization && <p class="text-sm text-quiet">{note.data.organization}</p>}
+              </div>
+              {note.data.highlight && <p class="text-sm text-quiet sm:col-span-4 sm:text-right">{note.data.highlight}</p>}
+            </li>
+          ))
+        }
+      </ul>
+    </section>
 
-        <div class="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-          {consumerIndustrial.map((item) => (
-            <article class="card group p-6">
-              <div class="mb-4 flex items-start justify-between gap-2">
-                <span class="inline-flex rounded-full bg-cyan-500/10 px-2.5 py-0.5 text-xs font-medium text-cyan-300">
-                  {item.data.category}
-                </span>
-                {item.data.highlight && (
-                  <span class="text-xs text-slate-500 text-right">{item.data.highlight}</span>
-                )}
-              </div>
-              <h3 class="mb-2 text-lg font-semibold text-white group-hover:text-brand-300 transition">
-                {item.data.title}
-              </h3>
-              {item.data.organization && (
-                <p class="mb-3 text-sm font-medium text-slate-500">{item.data.organization}</p>
-              )}
-              <div class="text-sm text-slate-400 leading-relaxed">
-                <item.Content />
-              </div>
-            </article>
-          ))}
+    <section class="border-y border-rule" aria-labelledby="process-title">
+      <div class="container-narrow py-16 sm:py-24">
+        <div class="flex flex-wrap items-end justify-between gap-4">
+          <div>
+            <p class="kicker">How it closes</p>
+            <h2 id="process-title" class="mt-3 font-display text-4xl tracking-tight">Four steps. No auction theater.</h2>
+          </div>
+          <a href="/transfer/" class="inline-flex min-h-12 items-center font-medium underline decoration-rule underline-offset-4">
+            Transfer details
+          </a>
         </div>
+        <ol class="mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+          {
+            steps.map((step) => (
+              <li class="border-t border-copper pt-4">
+                <p class="font-display text-2xl text-copper">{step.n}</p>
+                <h3 class="mt-2 font-semibold">{step.title}</h3>
+                <p class="mt-2 text-sm leading-relaxed text-quiet">{step.copy}</p>
+              </li>
+            ))
+          }
+        </ol>
       </div>
     </section>
 
-    <!-- Context / Disclaimer strip -->
-    <section class="border-t border-slate-800/60 py-10">
-      <div class="container-narrow">
-        <div class="rounded-2xl border border-slate-700/50 bg-slate-850/50 p-6 text-center">
-          <p class="text-sm text-slate-500 leading-relaxed max-w-3xl mx-auto">
-            This website is for demonstration and informational purposes only. It does not constitute an offer of services, a commitment to deploy, or a guarantee of outcomes. All statistics, projections, and references to specific technologies are based on publicly available information as of August 2026 and are subject to change.
+    <section id="offer" class="container-narrow grid gap-8 py-16 sm:py-24 lg:grid-cols-12">
+      <div class="lg:col-span-5">
+        <p class="kicker">Acquire</p>
+        <h2 class="mt-3 font-display text-4xl tracking-tight">Buy it, or name a number.</h2>
+        <p class="mt-4 text-quiet">
+          Buy now is {PRICE_LABEL}. Make offer if you want a different figure read by a person. Contact the agent if you
+          need the transfer mechanics before a number.
+        </p>
+        <div class="mt-8">
+          <Price compact />
+        </div>
+      </div>
+      <div class="lg:col-span-7">
+        <form id="offer-form" class="rounded-lg border border-rule bg-card p-6 sm:p-8" novalidate>
+          <h2 class="font-display text-3xl tracking-tight">Inquire</h2>
+          <p class="mt-2 text-sm leading-relaxed text-quiet">
+            This opens your email to {EMAIL}. Nothing is stored on this site.
           </p>
+          <fieldset class="mt-6">
+            <legend class="text-sm font-medium">What do you want to do?</legend>
+            <div class="mt-3 grid gap-2 sm:grid-cols-3">
+              <label class="flex min-h-12 items-center justify-center rounded-lg border border-copper bg-copper px-3 text-sm font-medium text-copper-ink">
+                <input class="sr-only" type="radio" name="intent" value="buy" checked />
+                Buy now
+              </label>
+              <label class="flex min-h-12 items-center justify-center rounded-lg border border-rule px-3 text-sm font-medium">
+                <input class="sr-only" type="radio" name="intent" value="offer" />
+                Make offer
+              </label>
+              <label class="flex min-h-12 items-center justify-center rounded-lg border border-rule px-3 text-sm font-medium">
+                <input class="sr-only" type="radio" name="intent" value="question" />
+                Ask a question
+              </label>
+            </div>
+          </fieldset>
+          <div class="mt-4 grid gap-3 sm:grid-cols-2">
+            <label class="block text-sm">Name<input name="name" autocomplete="name" required class="field" /></label>
+            <label class="block text-sm">Email<input type="email" name="email" autocomplete="email" required class="field" /></label>
+            <label class="block text-sm">Phone <span class="text-quiet">(optional)</span><input name="phone" autocomplete="tel" inputmode="tel" class="field" /></label>
+            <label id="offer-amount-wrap" class="block text-sm" hidden>
+              Offer (USD)<input name="amount" inputmode="decimal" placeholder="100000" class="field" />
+            </label>
+          </div>
+          <label class="mt-3 block text-sm">
+            Note
+            <textarea name="note" rows="4" class="field min-h-32 py-3"></textarea>
+          </label>
+          <p id="offer-error" role="alert" class="mt-3 text-sm font-medium text-copper" hidden></p>
+          <p id="offer-status" role="status" class="mt-3 text-sm text-pine" hidden></p>
+          <button type="submit" class="btn-copper mt-5 w-full sm:w-auto">Email this inquiry</button>
+        </form>
+      </div>
+    </section>
+
+    <section class="border-t border-rule" aria-labelledby="faq-title">
+      <div class="mx-auto max-w-3xl px-5 py-16 sm:py-24">
+        <h2 id="faq-title" class="font-display text-4xl tracking-tight">Questions before you write.</h2>
+        <div class="mt-8 border-t border-rule">
+          {
+            faqs.map((item) => (
+              <details class="group border-b border-rule">
+                <summary class="flex min-h-12 items-center justify-between gap-4 py-3 text-base font-medium">
+                  {item.q}
+                  <span aria-hidden="true" class="text-copper group-open:hidden">+</span>
+                  <span aria-hidden="true" class="hidden text-copper group-open:inline">–</span>
+                </summary>
+                <p class="pb-5 text-quiet">{item.a}</p>
+              </details>
+            ))
+          }
         </div>
       </div>
     </section>
   </main>
-
   <Footer />
 </Layout>

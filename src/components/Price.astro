@@ -1,0 +1,28 @@
+---
+import { AGENT_MAIL, BUY_MAIL, OFFER_MAIL, PRICE_LABEL } from "../lib/sale";
+
+interface Props {
+  compact?: boolean;
+}
+const { compact = false } = Astro.props;
+---
+
+<aside class="rounded-lg border border-rule bg-card p-6 sm:p-8">
+  <p class="text-sm font-medium uppercase tracking-widest text-quiet">Asking price</p>
+  <p class="mt-2 font-display text-5xl leading-none tracking-tight sm:text-6xl">{PRICE_LABEL}</p>
+  <p class="mt-3 text-sm text-quiet">USD. Independent escrow. One buyer.</p>
+  <a href={BUY_MAIL} class="btn-copper mt-6 w-full">Buy now</a>
+  <a href={OFFER_MAIL} class="btn-line mt-3 w-full">Make an offer</a>
+  {
+    !compact && (
+      <a href={AGENT_MAIL} class="mt-3 flex min-h-12 items-center justify-center text-sm font-medium text-quiet underline-offset-4 hover:underline">
+        Contact the agent
+      </a>
+    )
+  }
+  <ul class="mt-6 space-y-2 border-t border-rule pt-5 text-sm text-quiet">
+    <li>Auth-code or registrar push</li>
+    <li>Clean history, single owner</li>
+    <li>Reply within one business day</li>
+  </ul>
+</aside>
